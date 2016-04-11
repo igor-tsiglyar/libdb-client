@@ -1,0 +1,9 @@
+@base("Get client info") {
+    <form action="@routes.Application.clientGetInfoPostHandler()" method="post">
+        First name: <input type="text" name="firstName"><br>
+        Last name: <input type="text" name="lastName"><br>
+        Passport series: <input type="text" name="passportSer"><br>
+        Passport number: <input type="text" name="passportNum"><br>
+        <button>Get client info</button>
+    </form>
+}

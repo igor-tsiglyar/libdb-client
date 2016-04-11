@@ -1,0 +1,12 @@
+@base("Add book") {
+  <form action="@routes.Application.addBookPostHandler()" method="post">
+      Title: <input type="text" name="title"><br>
+      Amount: <input type="number" name="amount"><br>
+      Type: <select name="typeId">
+                <option value="1">Ordinary</option>
+                <option value="2">Rare</option>
+                <option value="3">Unique</option>
+            </select><br>
+      <button>Add book</button>
+</form>
+}

@@ -1,0 +1,7 @@
+@base("Delete book") {
+    <form action="@routes.Application.deleteBookPostHandler()" method="post">
+        Title: <input type="text" name="title"><br>
+        Amount: <input type="number" name="amount"><br>
+        <button>Delete book</button>
+    </form>
+}

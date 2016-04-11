@@ -1,0 +1,57 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/jquery-1.10.2.min.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/jquery.jsontotable.min.js")'></script>
+    </head>
+    <body>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="/">Home</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Clients
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/client/add">Add</a></li>
+                    <li><a href="/client/delete">Delete</a></li>
+                    <li><a href="/client/get">View</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Books
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/book/add">Add</a></li>
+                    <li><a href="/book/delete">Delete</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="/books/top">
+                    Top books
+                    <span class="caret"></span>
+                </a>
+            </li>
+        </ul>
+
+
+        @if(flash.contains("message")) {
+            <div class="alert">
+                @flash().get("message")
+            </div>
+        }
+
+        @content
+    </body>
+</html>

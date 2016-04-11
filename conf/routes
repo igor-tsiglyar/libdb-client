@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.Application.index
+
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET     /client                     controllers.Application.clientGetHandler
+GET     /client/$id<[0-9]+>         controllers.Application.clientInfoGetHandler(id: Int)
+GET     /client/get                 controllers.Application.clientGetInfoGetHandler
+POST    /client/get                 controllers.Application.clientGetInfoPostHandler
+GET     /client/add                 controllers.Application.addClientGetHandler()
+POST    /client/add                 controllers.Application.addClientPostHandler()
+GET     /client/delete              controllers.Application.deleteClientGetHandler()
+POST    /client/delete              controllers.Application.deleteClientPostHandler()
+
+GET     /book                       controllers.Application.bookGetHandler
+GET     /book/add                   controllers.Application.addBookGetHandler()
+POST    /book/add                   controllers.Application.addBookPostHandler()
+GET     /book/delete                controllers.Application.deleteBookGetHandler()
+POST    /book/delete                controllers.Application.deleteBookPostHandler()
+
+GET     /books.json                 controllers.Application.booksJsonGetHandler
+GET     /books                      controllers.Application.booksGetHandler
+GET     /books/top.json             controllers.Application.topBooksJsonGetHandler
+GET     /books/top                  controllers.Application.topBooksGetHandler
+
+
