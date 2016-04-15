@@ -1,17 +1,7 @@
-form {
-    text-align: right;
-    margin: 25px;
-    width: 750px;
-}
-
-.dropdown-menu.multi-column {
-    width: 400px;
-}
-
-.dropdown-menu.multi-column .dropdown-menu {
-    display: block !important;
-    position: static !important;
-    margin: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
+ul.notice.errors {
+    background-color: #EDE04D;
+    color: #212200;
+    text-align: center;
+    font-size: large;
+    list-style: none;
 }

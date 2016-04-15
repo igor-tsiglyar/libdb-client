@@ -5,51 +5,63 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/bootstrap.min.js")'></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/jquery-1.10.2.min.js")'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/jquery.jsontotable.min.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/bootstrap-dropdown.js")'></script>
     </head>
     <body>
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="/">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Clients
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/client/add">Add</a></li>
-                    <li><a href="/client/delete">Delete</a></li>
-                    <li><a href="/client/get">View</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Books
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/book/add">Add</a></li>
-                    <li><a href="/book/delete">Delete</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="/books/top">
-                    Top books
-                    <span class="caret"></span>
-                </a>
-            </li>
-        </ul>
 
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Library</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clients <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/clients/search">Search</a></li>
+                                <li><a href="/clients/add">Add</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Books <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/books/search">Search</a></li>
+                                <li><a href="/books/add">Add</a></li>
+                                <li><a href="/books/top">Top</a></li>
+                            </ul>
+                        </li>
+                        @if(Session.isLoggedOn()) {
+                            <li><a href="@routes.Application.logout()">Logout</a></li>
+                        } else {
+                            <li><a href="@routes.Application.login()">Login</a></li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://www.playframework.com/">Play Framework</a></li>
+                        <li><a href="http://getbootstrap.com/">Twitter Bootrstrap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
         @if(flash.contains("message")) {
-            <div class="alert">
-                @flash().get("message")
-            </div>
+            <ul class="notice errors">
+                <li>@flash().get("message")</li>
+            </ul>
         }
 
         @content

@@ -4,27 +4,33 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.Application.index
-
+GET     /404                        controllers.Application.notFound404
+GET     /login                      controllers.Application.login
+POST    /login                      controllers.Application.auth
+GET     /logout                     controllers.Application.logout()
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-GET     /client                     controllers.Application.clientGetHandler
-GET     /client/$id<[0-9]+>         controllers.Application.clientInfoGetHandler(id: Int)
-GET     /client/get                 controllers.Application.clientGetInfoGetHandler
-POST    /client/get                 controllers.Application.clientGetInfoPostHandler
-GET     /client/add                 controllers.Application.addClientGetHandler()
-POST    /client/add                 controllers.Application.addClientPostHandler()
-GET     /client/delete              controllers.Application.deleteClientGetHandler()
-POST    /client/delete              controllers.Application.deleteClientPostHandler()
+GET     /clients/$id<[0-9]+>         controllers.Clients.view(id: Int)
+GET     /clients/search              controllers.Clients.renderSearch
+POST    /clients/search              controllers.Clients.search
+GET     /clients/add                 controllers.Clients.renderAdd
+POST    /clients/add                 controllers.Clients.add
+POST    /clients/delete              controllers.Clients.delete
 
-GET     /book                       controllers.Application.bookGetHandler
-GET     /book/add                   controllers.Application.addBookGetHandler()
-POST    /book/add                   controllers.Application.addBookPostHandler()
-GET     /book/delete                controllers.Application.deleteBookGetHandler()
-POST    /book/delete                controllers.Application.deleteBookPostHandler()
+GET     /books/$id<[0-9]+>           controllers.Books.view(id: Int)
+GET     /books/search                controllers.Books.renderSearch
+POST    /books/search                controllers.Books.search
+GET     /books/add                   controllers.Books.renderAdd
+POST    /books/add                   controllers.Books.add
+POST    /books/delete                controllers.Books.delete
+GET     /books/all.json              controllers.Books.allJson
+GET     /books/top.json              controllers.Books.topJson
+GET     /books/top                   controllers.Books.top
+GET     /books/client/$id<[0-9]+>    controllers.Books.withClient(id: Int)
+GET     /books/client/$id<[0-9]+>/avaliable     controllers.Books.avaliable(id: Int)
 
-GET     /books.json                 controllers.Application.booksJsonGetHandler
-GET     /books                      controllers.Application.booksGetHandler
-GET     /books/top.json             controllers.Application.topBooksJsonGetHandler
-GET     /books/top                  controllers.Application.topBooksGetHandler
+POST    /journal/add                 controllers.Journal.add
+POST    /journal/delete              controllers.Journal.delete
+
 
 

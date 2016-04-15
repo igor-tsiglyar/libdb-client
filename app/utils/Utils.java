@@ -37,4 +37,8 @@ public class Utils {
         calendar.add(Calendar.DATE, days);
         return new Date(calendar.getTimeInMillis());
     }
+
+    public static Date todayDate() {
+        return new Date(Calendar.getInstance().getTime().getTime());
+    }
 }

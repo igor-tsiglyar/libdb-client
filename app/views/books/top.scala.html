@@ -1,4 +1,37 @@
 @base("Top 10 books") {
-  <div id="jsontotable" class="jsontotable"></div>
-  <script type='text/javascript' src='@routes.Assets.versioned("javascripts/books/top.js")'></script>
+    <div class="bs-docs-section">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="well bs-component">
+                <div id="jsontotable" class="jsontotable"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+      $.getJSON("/books/top.json", function(json) {
+          if (!$.isEmptyObject(json)) {
+              for (var index in json) {
+                  json[index]["title"] = "<a href='/books/" + json[index]["id"] + "'>" +
+                                  json[index]["title"] + "</a>";
+
+                  console.log(json[index]["title"]);
+
+                  delete json[index]["id"];
+                  delete json[index]["dateToReturn"];
+              }
+
+              json.splice(0, 0, {"title": "Title", "amount": "Amount", "kind": "Type"});
+
+              json = JSON.parse(JSON.stringify(json).split('"title":').join('"Title":'));
+              json = JSON.parse(JSON.stringify(json).split('"amount":').join('"Amount":'));
+              json = JSON.parse(JSON.stringify(json).split('"kind":').join('"Type":'));
+
+              $.jsontotable(json, {id: "#jsontotable"});
+
+              $("table")
+                      .addClass("table table-striped table-hover")
+                      .append("<caption><h3>Ten most popular books</h3></caption>");
+          }
+      });
+    </script>
 }

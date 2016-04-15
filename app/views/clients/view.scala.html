@@ -1,0 +1,108 @@
+@(info: utils.ClientInfo)
+
+@base("View client") {
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $.getJSON("/books/client/" + @info.id, function(json) {
+                    if (!$.isEmptyObject(json)) {
+                        for (var index in json) {
+                            json[index]["title"] = "<a href='/books/" + json[index]["id"] + "'>" + json[index]["title"] + "</a>";
+                            json[index]["remove"] = "<form action='@routes.Journal.delete()' method='post'>" +
+                                    "<input type='hidden' name='clientId' value='" + @info.id +"'>" +
+                                    "<input type='hidden' name='bookId' value='" + json[index]["id"] + "'>" +
+                                    "<button type='submit' class='btn btn-primary'>Remove</button>" +
+                                    "</form>";
+
+                            delete json[index]["id"];
+                            delete json[index]["kind"];
+                            delete json[index]["amount"];
+                        }
+
+                        json.splice(0, 0, {"title": "Title", "dateToReturn": "Date to return", "remove": "Action"});
+
+                        json = JSON.parse(JSON.stringify(json).split('"title":').join('"Title":'));
+                        json = JSON.parse(JSON.stringify(json).split('"dateToReturn":').join('"Date to return":'));
+                        json = JSON.parse(JSON.stringify(json).split('"remove":').join('"Action":'));
+
+                        $.jsontotable(json, {id: "#jsontotable"});
+
+                        $("table")
+                                .addClass("table table-hover")
+                                    .append("<caption><h3>Books</h3></caption>");
+                    }
+                });
+            });
+    </script>
+
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $.getJSON("/books/client/" + @info.id + "/avaliable", function(json) {
+                    if (!$.isEmptyObject(json)) {
+                        for (var index in json) {
+                            $("#bookId")
+                                    .append($("<option></option>")
+                                            .attr("value", json[index]["id"])
+                                                .text(json[index]["title"]));
+                        }
+                    }
+                });
+            });
+    </script>
+
+
+    <div class="card">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="card-block">
+                <h4 class="card-title">@info.firstName @info.lastName</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Passport @info.passportSer @info.passportNum</li>
+                <li class="list-group-item">Fine @info.fineAmount roubles</li>
+            </ul>
+            <div class="card-block">
+                <div id="jsontotable" class="jsontotable"></div>
+            </div>
+            <div class="card-block">
+                <form class="form-horizontal" role="form" action="@routes.Journal.add()" method="post">
+                    <fieldset>
+                        <legend>Add book</legend>
+                        <div class="form-group">
+                            <input class="form-control" id="clientId" name="clientId" type="hidden" value="@info.id">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookId" class="col-lg-3 control-label">Title</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="bookId" name="bookId">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 col-lg-offset-3">
+                                <button type="reset" class="col-lg-2 btn btn-default">Cancel</button>
+                                <button type="submit" class="col-lg-2 col-lg-offset-1 btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="card-block">
+                <form class="form-horizontal" role="form" action="@routes.Clients.delete()" method="post">
+                    <fieldset>
+                        <legend>Delete client</legend>
+                        <div class="form-group">
+                            <input class="form-control" id="id" name="id" type="hidden" value="@info.id">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 col-lg-offset-3">
+                                <button type="submit" class="col-lg-2 col-lg-offset-1 btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
