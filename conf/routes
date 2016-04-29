@@ -5,6 +5,8 @@
 # An example controller showing a sample home page
 GET     /                           controllers.Application.index
 GET     /404                        controllers.Application.notFound404
+GET     /register                   controllers.Application.register
+POST    /register                   controllers.Application.addUser
 GET     /login                      controllers.Application.login
 POST    /login                      controllers.Application.auth
 GET     /logout                     controllers.Application.logout()
@@ -31,6 +33,8 @@ GET     /books/client/$id<[0-9]+>/avaliable     controllers.Books.avaliable(id: 
 
 POST    /journal/add                 controllers.Journal.add
 POST    /journal/delete              controllers.Journal.delete
+GET     /journal/all                 controllers.Journal.view
+GET     /journal/all.json            controllers.Journal.viewJson
 
 
 

@@ -44,10 +44,14 @@
                                 <li><a href="/books/top">Top</a></li>
                             </ul>
                         </li>
+                        <li><a href="@routes.Journal.view()">Journal</a></li>
                         @if(Session.isLoggedOn()) {
                             <li><a href="@routes.Application.logout()">Logout</a></li>
                         } else {
                             <li><a href="@routes.Application.login()">Login</a></li>
+                        }
+                        @if(Session.isAdmin()) {
+                            <li><a href="@routes.Application.register()">Add user</a></li>
                         }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

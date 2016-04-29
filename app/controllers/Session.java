@@ -15,4 +15,9 @@ public class Session extends Action.Simple {
     public static Boolean isLoggedOn() {
         return Http.Context.current().session().get("email") != null;
     }
+
+    public static Boolean isAdmin() {
+        return "admin@email.com".equals(Http.Context.current().session().get("email"));
+    }
+
 }

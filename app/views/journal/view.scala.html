@@ -1,0 +1,34 @@
+@base("Journal") {
+<div class="bs-docs-section">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="well bs-component">
+            <div id="jsontotable" class="jsontotable"></div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+    $.getJSON("/journal/all.json", function(json) {
+
+        if (!$.isEmptyObject(json)) {
+            json.splice(0, 0, {
+                "id": "ID", "bookId": "Book ID", "clientId": "Client ID",
+                "dateBorrowed": "Date borrowed", "dateToReturn": "Date to return", "returnDate": "Return date"
+            });
+
+            json = JSON.parse(JSON.stringify(json).split('"id":').join('"ID":'));
+            json = JSON.parse(JSON.stringify(json).split('"bookId":').join('"Book ID":'));
+            json = JSON.parse(JSON.stringify(json).split('"clientId":').join('"Client ID":'));
+            json = JSON.parse(JSON.stringify(json).split('"dateBorrowed":').join('"Date borrowed":'));
+            json = JSON.parse(JSON.stringify(json).split('"dateToReturn":').join('"Date to return":'));
+            json = JSON.parse(JSON.stringify(json).split('"returnDate":').join('"Return date":'));
+
+            $.jsontotable(json, {id: "#jsontotable"});
+
+            $("table")
+                    .addClass("table table-striped table-hover")
+                    .append("<caption><h3>Librarian's journal records</h3></caption>");
+        }
+    });
+</script>
+}

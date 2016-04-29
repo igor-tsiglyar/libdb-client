@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import play.db.Database;
+import play.libs.F.Tuple;
 
 
 public class Librarian {
@@ -532,26 +533,45 @@ public class Librarian {
         }
     }
 
-    public boolean canSignIn(Login login) {
+    public Tuple<String, String> getHashAndSalt(String email) {
         try (Connection conn = library.getConnection()) {
             String query = "SELECT * " +
                            "FROM USERS " +
-                           "WHERE EMAIL = ? AND PASSWORD = ?";
+                           "WHERE EMAIL = ?";
             PreparedStatement ps = conn.prepareStatement(query);;
 
-            ps.setString(1, login.email);
-            ps.setString(2, login.password);
+            ps.setString(1, email);
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                return true;
+            if (rs.next()) {
+                return new Tuple<String, String>(
+                    rs.getString("HASH"),
+                    rs.getString("SALT")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
+    }
+
+    public void addUser(String email, String hash, String salt) {
+        try (Connection conn = library.getConnection()) {
+            String query = "INSERT INTO USERS (EMAIL, HASH, SALT) " +
+                           "VALUES (?, ?, ?)";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.setString(1, email);
+            ps.setString(2, hash);
+            ps.setString(3, salt);
+
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
