@@ -1,14 +1,5 @@
-This is your new Play application
-=================================
+Library database client built with Play Framework, Oracle Database and Twitter Bootstrap.
 
-This file will be packaged with your application when using `activator dist`.
+run with
 
-There are several demonstration files available in this template.
-
-Controllers
-===========
-
-- HomeController.java:
-
-  Shows how to handle simple HTTP requests.
-
+bin/activator run
